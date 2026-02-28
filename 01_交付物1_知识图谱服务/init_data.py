@@ -1,0 +1,199 @@
+"""
+初始化数据脚本
+创建示例知识图谱数据（JSON-LD格式）
+"""
+import json
+import os
+
+
+def create_sample_data():
+    """
+    创建示例知识图谱数据
+    包含：项目、构件、工序、质量问题等实体
+    """
+    # 创建data目录
+    os.makedirs("data", exist_ok=True)
+    
+    # 定义知识图谱数据
+    data = {
+        "@context": {
+            "sb": "http://steel-bridge.org/ontology#",
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
+        },
+        "@graph": [
+            # ========== 项目实体 ==========
+            {
+                "@id": "sb:Project_PRJ_001",
+                "@type": "sb:Project",
+                "sb:projectId": "PRJ-20260115-001",
+                "sb:projectName": "某长江大桥钢箱梁制造项目",
+                "sb:bridgeType": "斜拉桥",
+                "sb:totalLength": "1234.5",
+                "sb:mainSpan": "680.0",
+                "sb:location": "江苏省南京市",
+                "sb:designUnit": "中交公路规划设计院",
+                "sb:manufactureUnit": "中铁宝桥",
+                "sb:startDate": "2026-01-15",
+                "sb:status": "生产中"
+            },
+            
+            # ========== 构件实体 ==========
+            {
+                "@id": "sb:Beam_B_001",
+                "@type": "sb:Beam",
+                "sb:beamId": "B-PRJ20260115-0001",
+                "sb:projectId": "PRJ-20260115-001",
+                "sb:beamType": "顶板",
+                "sb:segmentNo": "S01",
+                "sb:materialGrade": "Q345qD",
+                "sb:length": "12500.0",
+                "sb:width": "3200.0",
+                "sb:thickness": "24.0",
+                "sb:weight": "2456.8",
+                "sb:drawingNo": "DL-01-05",
+                "sb:status": "已完成"
+            },
+            {
+                "@id": "sb:Beam_B_002",
+                "@type": "sb:Beam",
+                "sb:beamId": "B-PRJ20260115-0002",
+                "sb:projectId": "PRJ-20260115-001",
+                "sb:beamType": "底板",
+                "sb:segmentNo": "S01",
+                "sb:materialGrade": "Q370qE",
+                "sb:length": "12500.0",
+                "sb:width": "2800.0",
+                "sb:thickness": "32.0",
+                "sb:weight": "3124.5",
+                "sb:status": "生产中"
+            },
+            {
+                "@id": "sb:Beam_B_003",
+                "@type": "sb:Beam",
+                "sb:beamId": "B-PRJ20260115-0003",
+                "sb:projectId": "PRJ-20260115-001",
+                "sb:beamType": "腹板",
+                "sb:segmentNo": "S01",
+                "sb:materialGrade": "Q345qD",
+                "sb:length": "3200.0",
+                "sb:height": "2800.0",
+                "sb:thickness": "16.0",
+                "sb:weight": "1856.3",
+                "sb:status": "待加工"
+            },
+            
+            # ========== 工序实体 ==========
+            {
+                "@id": "sb:Process_PROC_001",
+                "@type": "sb:Process",
+                "sb:processId": "PROC-PO20260120-001-01",
+                "sb:beamId": "B-PRJ20260115-0001",
+                "sb:seqNo": 1,
+                "sb:processName": "数控切割",
+                "sb:processType": "机加",
+                "sb:standardHours": "2.5",
+                "sb:actualHours": "2.3",
+                "sb:status": "已完成",
+                "sb:startTime": "2026-01-20T08:00:00Z",
+                "sb:endTime": "2026-01-20T10:30:00Z"
+            },
+            {
+                "@id": "sb:Process_PROC_002",
+                "@type": "sb:Process",
+                "sb:processId": "PROC-PO20260120-001-02",
+                "sb:beamId": "B-PRJ20260115-0001",
+                "sb:seqNo": 2,
+                "sb:processName": "边缘加工",
+                "sb:processType": "机加",
+                "sb:standardHours": "1.5",
+                "sb:actualHours": "1.5",
+                "sb:status": "已完成"
+            },
+            {
+                "@id": "sb:Process_PROC_003",
+                "@type": "sb:Process",
+                "sb:processId": "PROC-PO20260120-001-03",
+                "sb:beamId": "B-PRJ20260115-0001",
+                "sb:seqNo": 3,
+                "sb:processName": "组对",
+                "sb:processType": "装配",
+                "sb:standardHours": "4.0",
+                "sb:actualHours": "5.2",
+                "sb:status": "已完成"
+            },
+            {
+                "@id": "sb:Process_PROC_004",
+                "@type": "sb:Process",
+                "sb:processId": "PROC-PO20260120-001-04",
+                "sb:beamId": "B-PRJ20260115-0001",
+                "sb:seqNo": 4,
+                "sb:processName": "焊接",
+                "sb:processType": "焊接",
+                "sb:standardHours": "8.0",
+                "sb:actualHours": "12.0",
+                "sb:status": "进行中"
+            },
+            
+            # ========== 质量问题实体 ==========
+            {
+                "@id": "sb:QualityIssue_QI_001",
+                "@type": "sb:QualityIssue",
+                "sb:issueId": "QI-20260122-0001",
+                "sb:processId": "PROC-PO20260120-001-04",
+                "sb:beamId": "B-PRJ20260115-0001",
+                "sb:defectType": "气孔",
+                "sb:category": "焊缝缺陷",
+                "sb:severity": "B类",
+                "sb:description": "焊缝表面出现密集气孔，直径1-2mm",
+                "sb:cause": "保护气体流量不足",
+                "sb:solution": "调整气体流量至25L/min，重新焊接",
+                "sb:prevention": "每班首件确认气体流量",
+                "sb:status": "已关闭",
+                "sb:occurrenceDate": "2026-01-22",
+                "sb:resolutionDate": "2026-01-22"
+            },
+            
+            # ========== 材料实体 ==========
+            {
+                "@id": "sb:Material_Q345qD",
+                "@type": "sb:Material",
+                "sb:grade": "Q345qD",
+                "sb:standard": "GB/T 714",
+                "sb:yieldStrength": "345",
+                "sb:tensileStrength": "490-630",
+                "sb:application": "桥梁结构用钢"
+            },
+            {
+                "@id": "sb:Material_Q370qE",
+                "@type": "sb:Material",
+                "sb:grade": "Q370qE",
+                "sb:standard": "GB/T 714",
+                "sb:yieldStrength": "370",
+                "sb:tensileStrength": "510-650",
+                "sb:application": "大跨度桥梁用钢"
+            }
+        ]
+    }
+    
+    # 保存到文件
+    file_path = "data/kg_steel_bridge.jsonld"
+    with open(file_path, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+    
+    print(f"✅ 示例数据已创建: {file_path}")
+    print(f"  包含 {len(data['@graph'])} 个实体:")
+    
+    # 统计各类实体数量
+    from collections import Counter
+    types = [e.get('@type', '').replace('sb:', '') for e in data['@graph']]
+    for t, count in Counter(types).items():
+        print(f"    - {t}: {count}个")
+    
+    return file_path
+
+
+if __name__ == "__main__":
+    create_sample_data()
+    print("\n提示: 运行 'python main.py' 启动服务")
