@@ -1,0 +1,39 @@
+name: Deploy to GitHub
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    - name: Install dependencies
+      run: |
+        pip install -r 01_交付物1_知识图谱服务/requirements.txt
+        pip install -r 02_交付物2_Web端大模型/backend/requirements.txt
+    
+    - name: Test services
+      run: |
+        cd 01_交付物1_知识图谱服务 && python3 init_data.py
+        echo "✅ 数据初始化完成"
+    
+    - name: Create release package
+      run: |
+        zip -r steel-bridge-release.zip . -x "*.pyc" -x "__pycache__/*" -x ".git/*"
+        echo "✅ 发布包创建完成"
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: steel-bridge-release
+        path: steel-bridge-release.zip

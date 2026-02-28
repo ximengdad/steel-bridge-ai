@@ -1,6 +1,7 @@
 """
 质检Agent
 """
+from typing import Dict
 from app.agents.base import BaseAgent
 from app.models.schemas import SceneType
 
