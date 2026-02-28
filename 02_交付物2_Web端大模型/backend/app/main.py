@@ -159,3 +159,21 @@ async def get_templates(scene: SceneType = None):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host=API_HOST, port=API_PORT)
+
+# 添加前端静态文件服务
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
+
+# 挂载前端静态文件
+frontend_path = os.path.join(os.path.dirname(__file__), "../../frontend")
+if os.path.exists(frontend_path):
+    app.mount("/static", StaticFiles(directory=frontend_path), name="static")
+
+@app.get("/")
+async def serve_frontend():
+    """服务前端页面"""
+    frontend_file = os.path.join(frontend_path, "index.html")
+    if os.path.exists(frontend_file):
+        return FileResponse(frontend_file)
+    return {"message": "钢箱梁智能助手 API 服务运行中"}
