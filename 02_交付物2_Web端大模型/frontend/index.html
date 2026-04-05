@@ -253,7 +253,12 @@
 
     <script>
         // 配置
-        const API_BASE = 'http://localhost:8081';  // 后端服务地址
+        // 自动检测 API 地址
+        const API_BASE = window.location.origin.includes('github.dev') 
+            ? window.location.origin.replace(/-\d+\.github\.dev/, '-8080.github.dev')
+            : (window.location.origin.includes('fly.dev') 
+                ? window.location.origin 
+                : 'http://localhost:8080');
         let currentScene = 'design';
         let isLoading = false;
         

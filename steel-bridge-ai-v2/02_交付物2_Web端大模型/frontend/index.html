@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>柳林桥钢箱梁智能助手</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+        
+        .sidebar h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .menu-item {
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .menu-item:hover, .menu-item.active {
+            background: #f0f4ff;
+            color: #667eea;
+        }
+        
+        .menu-item .icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #666;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .category-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .tag {
+            padding: 8px 16px;
+            background: #f0f4ff;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        
+        .tag:hover, .tag.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .drawing-list {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .drawing-card {
+            padding: 18px;
+            background: #fafafa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s;
+        }
+        
+        .drawing-card:hover {
+            background: #f0f4ff;
+            transform: translateX(5px);
+        }
+        
+        .drawing-card h4 {
+            color: #333;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+        
+        .drawing-card .meta {
+            color: #888;
+            font-size: 13px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .drawing-card .category-badge {
+            background: #667eea;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+
+        .drawing-card .actions {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 6px 14px;
+            font-size: 13px;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-dimensions {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .btn-dimensions:hover {
+            background: #1976d2;
+            color: white;
+        }
+
+        .btn-view {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .btn-view:hover {
+            background: #7b1fa2;
+            color: white;
+        }
+
+        .dimensions-panel {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 3px solid #667eea;
+        }
+
+        .dimensions-panel h5 {
+            color: #667eea;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .dim-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .dim-item {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .dim-item .value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .dim-item .label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .dim-list {
+            margin-top: 10px;
+        }
+
+        .dim-list li {
+            padding: 5px 0;
+            color: #555;
+            font-size: 13px;
+        }
+        
+        .sketch-container {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .sketch-container h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .sketch-types {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .sketch-preview {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sketch-preview svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .chat-container {
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 20px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+        
+        .message {
+            margin: 10px 0;
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 80%;
+        }
+        
+        .message.user {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+        
+        .message.assistant {
+            background: white;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        
+        .quick-question {
+            padding: 6px 14px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quick-question:hover {
+            background: #f0f4ff;
+            border-color: #667eea;
+            color: #667eea;
+        }
+        
+        .project-info {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .project-info h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .info-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .info-item .label {
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+        
+        .info-item .value {
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+        
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏗️ 柳林桥钢箱梁智能助手</h1>
+        <p>面向AI的模型驱动下钢箱梁模块化设计与生产数据架构研究</p>
+    </div>
+    
+    <div class="container">
+        <div class="grid">
+            <div class="sidebar">
+                <h3>📋 功能导航</h3>
+                <div class="menu-item active" onclick="showSection('drawings')">
+                    <span class="icon">📐</span>
+                    <span>图纸检索</span>
+                </div>
+                <div class="menu-item" onclick="showSection('construction')">
+                    <span class="icon">🏗️</span>
+                    <span>施工指导</span>
+                </div>
+                <div class="menu-item" onclick="showSection('sketch')">
+                    <span class="icon">✏️</span>
+                    <span>草图生成</span>
+                </div>
+                <div class="menu-item" onclick="showSection('chat')">
+                    <span class="icon">💬</span>
+                    <span>智能问答</span>
+                </div>
+                
+                <h3 style="margin-top: 30px;">📊 项目概览</h3>
+                <div class="info-item" style="margin-bottom: 10px;">
+                    <div class="label">项目编号</div>
+                    <div class="value">LLQ-2024-001</div>
+                </div>
+                <div class="info-item" style="margin-bottom: 10px;">
+                    <div class="label">桥型</div>
+                    <div class="value">中承式拱桥</div>
+                </div>
+                <div class="info-item" style="margin-bottom: 10px;">
+                    <div class="label">图纸总数</div>
+                    <div class="value">72 张</div>
+                </div>
+                <div class="info-item">
+                    <div class="label">项目地点</div>
+                    <div class="value">天津市</div>
+                </div>
+            </div>
+            
+            <div class="main-content">
+                <!-- 图纸检索部分 -->
+                <div id="section-drawings" class="section">
+                    <div class="project-info">
+                        <h2>柳林桥项目信息</h2>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="label">设计单位</div>
+                                <div class="value">中交第一航务工程局</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">施工单位</div>
+                                <div class="value">一航局</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">主桥图纸</div>
+                                <div class="value">64 张</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="label">智慧桥梁图纸</div>
+                                <div class="value">4 张</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-bottom: 15px;">🔍 图纸检索</h3>
+                    <div class="search-box">
+                        <input type="text" class="search-input" id="drawingSearch" 
+                               placeholder="输入图号或关键词搜索，如：拱肋、主梁、S2-1-2...">
+                        <button class="btn" onclick="searchDrawings()">搜索</button>
+                    </div>
+                    
+                    <div class="category-tags" id="categoryTags">
+                        <span class="tag active" onclick="filterByCategory('all')">全部</span>
+                        <span class="tag" onclick="filterByCategory('下部结构')">下部结构</span>
+                        <span class="tag" onclick="filterByCategory('拱肋结构')">拱肋结构</span>
+                        <span class="tag" onclick="filterByCategory('主梁系统')">主梁系统</span>
+                        <span class="tag" onclick="filterByCategory('吊索系统')">吊索系统</span>
+                        <span class="tag" onclick="filterByCategory('桥面系')">桥面系</span>
+                        <span class="tag" onclick="filterByCategory('智慧桥梁')">智慧桥梁</span>
+                    </div>
+                    
+                    <div class="drawing-list" id="drawingList">
+                        <div class="loading">正在加载图纸数据...</div>
+                    </div>
+                </div>
+                
+                <!-- 施工指导部分 -->
+                <div id="section-construction" class="section" style="display: none;">
+                    <h3 style="margin-bottom: 20px;">🏗️ 施工指导</h3>
+                    
+                    <div class="category-tags" style="margin-bottom: 25px;">
+                        <span class="tag active" onclick="showConstructionGuide('拱肋结构系统')">拱肋安装</span>
+                        <span class="tag" onclick="showConstructionGuide('主梁系统')">主梁制作</span>
+                        <span class="tag" onclick="showConstructionGuide('吊索系统')">吊索安装</span>
+                        <span class="tag" onclick="showConstructionGuide('桥面系及附属设施')">桥面系施工</span>
+                        <span class="tag" onclick="showConstructionGuide('下部结构系统')">下部结构</span>
+                    </div>
+                    
+                    <div id="constructionGuide">
+                        <div class="drawing-card">
+                            <h4>请选择构件系统查看施工指导</h4>
+                            <p style="color: #888; margin-top: 10px;">
+                                系统包含详细的施工工序、相关图纸、施工要点等信息
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 草图生成部分 -->
+                <div id="section-sketch" class="section" style="display: none;">
+                    <h3 style="margin-bottom: 20px;">✏️ 施工草图生成</h3>
+                    
+                    <div class="sketch-types">
+                        <button class="btn" onclick="generateSketch('arch_installation')">拱肋安装</button>
+                        <button class="btn btn-secondary" onclick="generateSketch('beam_fabrication')">主梁制作</button>
+                        <button class="btn btn-secondary" onclick="generateSketch('deck_construction')">桥面系施工</button>
+                    </div>
+                    
+                    <div class="sketch-container">
+                        <h3>草图预览</h3>
+                        <div class="sketch-preview" id="sketchPreview">
+                            <p style="color: #888;">点击上方按钮生成施工草图</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 智能问答部分 -->
+                <div id="section-chat" class="section" style="display: none;">
+                    <h3 style="margin-bottom: 20px;">💬 智能问答</h3>
+                    
+                    <div class="chat-container">
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message assistant">
+                                您好！我是柳林桥钢箱梁智能助手。我可以帮您：<br><br>
+                                • 查询图纸信息<br>
+                                • 提供施工建议<br>
+                                • 生成施工草图<br>
+                                • 解答技术问题<br><br>
+                                请问有什么可以帮您的？
+                            </div>
+                        </div>
+                        
+                        <div class="quick-questions">
+                            <span class="quick-question" onclick="askQuestion('拱肋安装需要什么图纸？')">拱肋安装需要什么图纸？</span>
+                            <span class="quick-question" onclick="askQuestion('主梁的参数是什么？')">主梁的参数是什么？</span>
+                            <span class="quick-question" onclick="askQuestion('柳林桥有多少张图纸？')">柳林桥有多少张图纸？</span>
+                            <span class="quick-question" onclick="askQuestion('施工流程是什么？')">施工流程是什么？</span>
+                        </div>
+                        
+                        <div class="chat-input">
+                            <input type="text" id="chatInput" placeholder="输入您的问题..."
+                                   onkeypress="if(event.key==='Enter') sendMessage()">
+                            <button class="btn" onclick="sendMessage()">发送</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API_BASE = 'http://localhost:8000';
+        let currentDrawings = [];
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAllDrawings();
+        });
+        
+        // 切换功能区块
+        function showSection(section) {
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            document.getElementById('section-' + section).style.display = 'block';
+            
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            event.target.closest('.menu-item').classList.add('active');
+        }
+        
+        // 加载所有图纸
+        async function loadAllDrawings() {
+            try {
+                const response = await fetch(`${API_BASE}/drawings/all-categories`);
+                const data = await response.json();
+                
+                let html = '';
+                for (const [category, info] of Object.entries(data)) {
+                    html += `<h4 style="margin: 20px 0 10px; color: #667eea;">${category} (${info.count}张)</h4>`;
+                    info.drawings.forEach(d => {
+                        html += createDrawingCard(d, category);
+                    });
+                }
+                
+                document.getElementById('drawingList').innerHTML = html;
+            } catch (error) {
+                document.getElementById('drawingList').innerHTML = `
+                    <div class="error">
+                        加载失败：${error.message}<br>
+                        请确保知识图谱服务已启动（python main.py）
+                    </div>
+                `;
+            }
+        }
+
+        // 创建图纸卡片
+        function createDrawingCard(d, category) {
+            return `
+                <div class="drawing-card" id="drawing-${d.drawingNo.replace(/[^a-zA-Z0-9]/g, '-')}">
+                    <h4>${d.drawingNo}</h4>
+                    <div class="meta">
+                        <span class="category-badge">${category}</span>
+                        <span>${d.drawingName}</span>
+                    </div>
+                    <div class="actions">
+                        <button class="btn-small btn-dimensions" onclick="viewDimensions('${d.drawingNo}')">
+                            📐 查看尺寸
+                        </button>
+                    </div>
+                    <div class="dimensions-container" id="dim-${d.drawingNo.replace(/[^a-zA-Z0-9]/g, '-')}" style="display: none;">
+                        <!-- 尺寸信息将在这里显示 -->
+                    </div>
+                </div>
+            `;
+        }
+
+        // 查看图纸尺寸
+        async function viewDimensions(drawingNo) {
+            const containerId = `dim-${drawingNo.replace(/[^a-zA-Z0-9]/g, '-')}`;
+            const container = document.getElementById(containerId);
+            
+            if (container.style.display === 'block') {
+                container.style.display = 'none';
+                return;
+            }
+            
+            container.innerHTML = '<div style="padding: 20px; text-align: center; color: #888;">加载尺寸信息...</div>';
+            container.style.display = 'block';
+            
+            try {
+                const response = await fetch(`${API_BASE}/drawings/${encodeURIComponent(drawingNo)}/dimensions`);
+                const data = await response.json();
+                
+                if (data.status === 'parsed' && data.dimensions) {
+                    const dims = data.dimensions;
+                    const summary = dims.summary || {};
+                    const mainDims = summary.mainDimensions || [];
+                    
+                    let html = `
+                        <div class="dimensions-panel">
+                            <h5>📐 尺寸信息</h5>
+                            <div class="dim-grid">
+                                <div class="dim-item">
+                                    <div class="value">${summary.totalEntities || 0}</div>
+                                    <div class="label">实体总数</div>
+                                </div>
+                                <div class="dim-item">
+                                    <div class="value">${summary.totalDimensionsExtracted || 0}</div>
+                                    <div class="label">尺寸标注</div>
+                                </div>
+                                <div class="dim-item">
+                                    <div class="value">${dims.entityCount?.circles || 0}</div>
+                                    <div class="label">圆孔数量</div>
+                                </div>
+                            </div>
+                    `;
+                    
+                    if (mainDims.length > 0) {
+                        html += `<ul class="dim-list">`;
+                        mainDims.forEach(dim => {
+                            html += `<li>• ${dim}</li>`;
+                        });
+                        html += `</ul>`;
+                    }
+                    
+                    if (dims.boundingBox) {
+                        html += `
+                            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid #e0e0e0;">
+                                <strong>图纸范围：</strong> 
+                                ${dims.boundingBox.width} × ${dims.boundingBox.height} mm
+                            </div>
+                        `;
+                    }
+                    
+                    html += `</div>`;
+                    container.innerHTML = html;
+                    
+                } else if (data.status === 'dwg_only') {
+                    container.innerHTML = `
+                        <div class="dimensions-panel">
+                            <h5>⚠️ 需要转换格式</h5>
+                            <p style="color: #666; font-size: 13px;">
+                                当前只有DWG格式，需要转换为DXF才能解析尺寸。
+                            </p>
+                            <p style="color: #888; font-size: 12px; margin-top: 8px;">
+                                ${data.note || ''}
+                            </p>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="dimensions-panel">
+                            <h5>ℹ️ 图纸信息</h5>
+                            <p style="color: #666; font-size: 13px;">${data.note || '暂无尺寸数据'}</p>
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="dimensions-panel">
+                        <h5>❌ 加载失败</h5>
+                        <p style="color: #c62828; font-size: 13px;">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // 搜索图纸
+        async function searchDrawings() {
+            const keyword = document.getElementById('drawingSearch').value;
+            if (!keyword) return;
+            
+            document.getElementById('drawingList').innerHTML = '<div class="loading">搜索中...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/drawings/search?keyword=${encodeURIComponent(keyword)}`);
+                const data = await response.json();
+                
+                if (data.data.length === 0) {
+                    document.getElementById('drawingList').innerHTML = '<div class="loading">未找到相关图纸</div>';
+                    return;
+                }
+                
+                let html = `<h4 style="margin-bottom: 15px;">找到 ${data.total} 张相关图纸</h4>`;
+                data.data.forEach(d => {
+                    html += createDrawingCard(d, d.category);
+                });
+                
+                document.getElementById('drawingList').innerHTML = html;
+            } catch (error) {
+                document.getElementById('drawingList').innerHTML = `<div class="error">搜索失败：${error.message}</div>`;
+            }
+        }
+        
+        // 按分类筛选
+        async function filterByCategory(category) {
+            document.querySelectorAll('.category-tags .tag').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (category === 'all') {
+                loadAllDrawings();
+                return;
+            }
+            
+            document.getElementById('drawingList').innerHTML = '<div class="loading">加载中...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/drawings/category/${encodeURIComponent(category)}`);
+                const data = await response.json();
+                
+                let html = `<h4 style="margin-bottom: 15px;">${category} (${data.count}张)</h4>`;
+                data.data.forEach(d => {
+                    html += createDrawingCard(d, category);
+                });
+                
+                document.getElementById('drawingList').innerHTML = html;
+            } catch (error) {
+                document.getElementById('drawingList').innerHTML = `<div class="error">加载失败：${error.message}</div>`;
+            }
+        }
+        
+        // 显示施工指导
+        async function showConstructionGuide(systemName) {
+            document.querySelectorAll('#section-construction .tag').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('constructionGuide').innerHTML = '<div class="loading">加载施工指导...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/components/${encodeURIComponent(systemName)}/construction-guide`);
+                const data = await response.json();
+                
+                let html = `
+                    <div class="drawing-card" style="margin-bottom: 20px;">
+                        <h4>📐 相关图纸 (${data.drawings.length}张)</h4>
+                        <div style="margin-top: 10px;">
+                `;
+                
+                data.drawings.forEach(d => {
+                    html += `<div style="padding: 8px; background: white; margin: 5px 0; border-radius: 5px;">
+                        <strong>${d.drawingNo}</strong> - ${d.drawingName}
+                    </div>`;
+                });
+                
+                html += `</div></div>`;
+                
+                if (data.processes.length > 0) {
+                    html += `
+                        <div class="drawing-card">
+                            <h4>🏗️ 施工工序</h4>
+                            <div style="margin-top: 10px;">
+                    `;
+                    
+                    data.processes.forEach(p => {
+                        html += `
+                            <div style="padding: 12px; background: white; margin: 8px 0; border-radius: 5px;">
+                                <strong>${p.processName}</strong> (${p.standardHours}工时)<br>
+                                <span style="color: #666; font-size: 13px;">${p.description}</span>
+                            </div>
+                        `;
+                    });
+                    
+                    html += '</div></div>';
+                }
+                
+                document.getElementById('constructionGuide').innerHTML = html;
+            } catch (error) {
+                document.getElementById('constructionGuide').innerHTML = `<div class="error">加载失败：${error.message}</div>`;
+            }
+        }
+        
+        // 生成施工草图
+        async function generateSketch(sketchType) {
+            document.querySelectorAll('.sketch-types button').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('sketchPreview').innerHTML = '<div class="loading">生成草图...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/sketch/generate?sketch_type=${sketchType}`);
+                const svgContent = await response.text();
+                
+                document.getElementById('sketchPreview').innerHTML = svgContent;
+            } catch (error) {
+                document.getElementById('sketchPreview').innerHTML = `<div class="error">生成失败：${error.message}</div>`;
+            }
+        }
+        
+        // 发送消息
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            // 添加用户消息
+            addMessage(message, 'user');
+            input.value = '';
+            
+            try {
+                const response = await fetch(`${API_BASE}/ai/query?question=${encodeURIComponent(message)}`);
+                const data = await response.json();
+                
+                let answer = data.answer;
+                if (data.suggestions && data.suggestions.length > 0) {
+                    answer += '<br><br>💡 建议：<br>' + data.suggestions.map(s => `• ${s}`).join('<br>');
+                }
+                
+                addMessage(answer, 'assistant');
+            } catch (error) {
+                addMessage('抱歉，服务暂时不可用。请确保知识图谱服务已启动。', 'assistant');
+            }
+        }
+        
+        // 快速提问
+        function askQuestion(question) {
+            document.getElementById('chatInput').value = question;
+            sendMessage();
+        }
+        
+        // 添加消息到聊天框
+        function addMessage(text, type) {
+            const container = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            div.innerHTML = text;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+    </script>
+</body>
+</html>

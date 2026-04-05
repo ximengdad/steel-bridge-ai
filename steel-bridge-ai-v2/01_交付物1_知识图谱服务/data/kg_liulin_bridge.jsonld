@@ -1,0 +1,630 @@
+{
+  "@context": {
+    "sb": "http://steel-bridge.org/ontology#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
+  },
+  "@graph": [
+    {
+      "@id": "sb:Project_LiuLinBridge",
+      "@type": "sb:Project",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:projectName": "柳林桥钢箱梁建造项目",
+      "sb:bridgeType": "中承式拱桥（钢箱梁）",
+      "sb:location": "天津市",
+      "sb:designUnit": "中交第一航务工程局",
+      "sb:manufactureUnit": "一航局",
+      "sb:startDate": "2024-01-15",
+      "sb:status": "在建",
+      "sb:description": "面向AI的模型驱动下钢箱梁模块化设计与生产数据架构研究课题",
+      "sb:totalDrawings": 72,
+      "sb:mainDrawings": 64,
+      "sb:smartBridgeDrawings": 4
+    },
+    
+    {
+      "@id": "sb:Substructure_System",
+      "@type": "sb:ComponentSystem",
+      "sb:systemName": "下部结构系统",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:description": "桥墩、桩基础、承台、支座系统",
+      "sb:components": ["sb:Pier_P1", "sb:Pier_P2", "sb:Foundation_F1", "sb:Bearing_B1"]
+    },
+    {
+      "@id": "sb:ArchRib_System",
+      "@type": "sb:ComponentSystem",
+      "sb:systemName": "拱肋结构系统",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:description": "主拱Z1-Z10（10节段）、次拱C1-C5（5节段）、横撑",
+      "sb:components": ["sb:MainArch_Z1", "sb:MainArch_Z2", "sb:MainArch_Z3", "sb:MainArch_Z4", "sb:MainArch_Z5", "sb:MainArch_Z6", "sb:MainArch_Z7", "sb:MainArch_Z8", "sb:MainArch_Z9", "sb:MainArch_Z10", "sb:SecondaryArch_C1", "sb:SecondaryArch_C2", "sb:SecondaryArch_C3", "sb:SecondaryArch_C4", "sb:SecondaryArch_C5", "sb:ArchBrace_HC1", "sb:ArchBrace_HC2"]
+    },
+    {
+      "@id": "sb:MainBeam_System",
+      "@type": "sb:ComponentSystem",
+      "sb:systemName": "主梁系统",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:description": "主梁节段、拱梁结合段、预拱度设计",
+      "sb:components": ["sb:MainBeam_Segment1", "sb:MainBeam_Segment2", "sb:ArchBeamJoint"]
+    },
+    {
+      "@id": "sb:Suspension_System",
+      "@type": "sb:ComponentSystem",
+      "sb:systemName": "吊索系统",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:description": "吊索布置及构造",
+      "sb:components": ["sb:SuspensionCable_SC1", "sb:SuspensionCable_SC2"]
+    },
+    {
+      "@id": "sb:Deck_System",
+      "@type": "sb:ComponentSystem",
+      "sb:systemName": "桥面系及附属设施",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:description": "桥面铺装、防撞护栏、排水管、伸缩缝、路灯",
+      "sb:components": ["sb:DeckPaving", "sb:CrashBarrier", "sb:DrainagePipe", "sb:ExpansionJoint", "sb:StreetLight"]
+    },
+    {
+      "@id": "sb:SmartBridge_System",
+      "@type": "sb:ComponentSystem",
+      "sb:systemName": "智慧桥梁系统",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:description": "传感器布设、测点布置、供电传输、健康监测",
+      "sb:components": ["sb:Sensor_S1", "sb:Sensor_S2", "sb:MonitoringSystem"]
+    },
+
+    {
+      "@id": "sb:Drawing_S2-1-1-1",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-1-1",
+      "sb:drawingName": "下部结构主要工程材料数量汇总表",
+      "sb:category": "下部结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-1-1 下部结构主要工程材料数量汇总表.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:Substructure_System"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-1-2",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-1-2",
+      "sb:drawingName": "桩位坐标表",
+      "sb:category": "下部结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-1-2 桩位坐标表.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:Substructure_System"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-1-3",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-1-3",
+      "sb:drawingName": "桥墩墩身及基础一般构造",
+      "sb:category": "下部结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-1-3 桥墩墩身及基础一般构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:Pier_P1", "sb:Pier_P2"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-1-4",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-1-4",
+      "sb:drawingName": "柳林桥引桥 桥墩桩基础钢筋构造",
+      "sb:category": "下部结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-1-4 柳林桥引桥 桥墩桩基础钢筋构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:Foundation_F1"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-1-5",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-1-5、6",
+      "sb:drawingName": "承台钢筋、冷却管",
+      "sb:category": "下部结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-1-5、6 承台钢筋、冷却管.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:Foundation_F1"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-1-7",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-1-7",
+      "sb:drawingName": "柳林桥主桥 桥墩墩身钢筋构造",
+      "sb:category": "下部结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-1-7 柳林桥主桥 桥墩墩身钢筋构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:Pier_P1", "sb:Pier_P2"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-1-8",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-1-8",
+      "sb:drawingName": "桥墩墩顶装饰构造",
+      "sb:category": "下部结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-1-8 桥墩墩顶装饰构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:Pier_P1", "sb:Pier_P2"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-1-9",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-1-9、10",
+      "sb:drawingName": "支座布置及钢筋构造",
+      "sb:category": "下部结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-1-9、10 支座布置及钢筋构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:Bearing_B1"]
+    },
+
+    {
+      "@id": "sb:Drawing_S2-1-2-1",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-1",
+      "sb:drawingName": "拱肋结构主要工程材料数量汇总表",
+      "sb:category": "拱肋结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-1 柳林桥主桥 拱肋结构主要工程材料数量汇总表.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:ArchRib_System"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-2-2",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-2、3",
+      "sb:drawingName": "拱肋节段划分及控制坐标总图",
+      "sb:category": "拱肋结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-2、3 柳林桥主桥 拱肋节段划分及控制坐标 总图.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:MainArch_Z1", "sb:MainArch_Z2", "sb:MainArch_Z3", "sb:MainArch_Z4", "sb:MainArch_Z5", "sb:MainArch_Z6", "sb:MainArch_Z7", "sb:MainArch_Z8", "sb:MainArch_Z9", "sb:MainArch_Z10"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-2-4",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-4",
+      "sb:drawingName": "拱肋预拱度布置",
+      "sb:category": "拱肋结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-4 柳林桥主桥 拱肋预拱度布置.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:ArchRib_System"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-2-5",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-5",
+      "sb:drawingName": "主拱Z1节段构造",
+      "sb:category": "拱肋结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-5 柳林桥主桥 主拱Z1节段构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:MainArch_Z1"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-2-6",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-6,8～14",
+      "sb:drawingName": "主拱Z2,Z4～Z10节段构造",
+      "sb:category": "拱肋结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-6,8～14 柳林桥主桥 主拱Z2,Z4～Z10节段构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:MainArch_Z2", "sb:MainArch_Z4", "sb:MainArch_Z5", "sb:MainArch_Z6", "sb:MainArch_Z7", "sb:MainArch_Z8", "sb:MainArch_Z9", "sb:MainArch_Z10"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-2-7",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-7",
+      "sb:drawingName": "主拱Z3节段构造",
+      "sb:category": "拱肋结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-7 柳林桥主桥 主拱Z3节段构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:MainArch_Z3"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-2-15",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-15~19",
+      "sb:drawingName": "次拱C1-C5节段构造",
+      "sb:category": "拱肋结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-15~19 柳林桥主桥 次拱C1-C5节段构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:SecondaryArch_C1", "sb:SecondaryArch_C2", "sb:SecondaryArch_C3", "sb:SecondaryArch_C4", "sb:SecondaryArch_C5"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-2-20",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-20",
+      "sb:drawingName": "拱肋横撑布置图",
+      "sb:category": "拱肋结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-20  柳林桥主桥 拱肋横撑布置图.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:ArchBrace_HC1", "sb:ArchBrace_HC2"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-2-22",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-22 23",
+      "sb:drawingName": "拱肋横撑HC1 HC2构造",
+      "sb:category": "拱肋结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-22 23  柳林桥主桥 拱肋横撑HC1 HC2构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:ArchBrace_HC1", "sb:ArchBrace_HC2"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-2-24",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-24",
+      "sb:drawingName": "拱段临时吊点构造",
+      "sb:category": "施工临时结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-24 柳林桥主桥 拱段临时吊点构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:MainArch_Z1", "sb:MainArch_Z2", "sb:MainArch_Z3", "sb:MainArch_Z4", "sb:MainArch_Z5", "sb:MainArch_Z6", "sb:MainArch_Z7", "sb:MainArch_Z8", "sb:MainArch_Z9", "sb:MainArch_Z10"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-2-25",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-25",
+      "sb:drawingName": "拱段工地连接构造",
+      "sb:category": "拱肋结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-25 柳林桥主桥 拱段工地连接构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:ArchRib_System"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-2-26",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-26",
+      "sb:drawingName": "拱段临时连接匹配件构造",
+      "sb:category": "施工临时结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-26 柳林桥主桥 拱段临时连接匹配件构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:ArchRib_System"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-2-27",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2-27、28",
+      "sb:drawingName": "拱肋爬梯",
+      "sb:category": "附属设施",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-2-27、28 柳林桥主桥 拱肋爬梯.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:ArchRib_System"]
+    },
+
+    {
+      "@id": "sb:Drawing_S2-1-3-1",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-3-1",
+      "sb:drawingName": "主梁结构主要工程材料数量汇总表",
+      "sb:category": "主梁系统",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-3-1 柳林桥主桥 主梁结构主要工程材料数量汇总表.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:MainBeam_System"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-3-2",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-3-2",
+      "sb:drawingName": "主梁梁段划分图",
+      "sb:category": "主梁系统",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-3-2 柳林桥主桥 主梁梁段划分图.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:MainBeam_Segment1", "sb:MainBeam_Segment2"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-3-4",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-3-4",
+      "sb:drawingName": "主梁预拱度布置",
+      "sb:category": "主梁系统",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-3-4 柳林桥主桥 主梁预拱度布置.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:MainBeam_System"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-3-5",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-3-5~7",
+      "sb:drawingName": "主梁节段构造",
+      "sb:category": "主梁系统",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-3-5~7 柳林桥主桥 主梁节段构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:MainBeam_Segment1", "sb:MainBeam_Segment2"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-3-8",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-3-8~9",
+      "sb:drawingName": "主梁拱梁结合段构造",
+      "sb:category": "主梁系统",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-3-8~9 柳林桥主桥 主梁拱梁结合段构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:ArchBeamJoint"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-3-10",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-3-10 11 12",
+      "sb:drawingName": "临时吊点、工地连接、匹配件",
+      "sb:category": "施工临时结构",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-3-10 11 12 临时吊点、工地连接、匹配件.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:MainBeam_System"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-3-13",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-3-13",
+      "sb:drawingName": "密封门构造",
+      "sb:category": "附属设施",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-3-13 柳林桥主桥 柳林桥主桥 密封门构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:MainBeam_System"]
+    },
+
+    {
+      "@id": "sb:Drawing_S2-1-4-1",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-4-1",
+      "sb:drawingName": "吊索布置及构造图",
+      "sb:category": "吊索系统",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-4-1 柳林桥主桥 吊索布置及构造图.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:SuspensionCable_SC1", "sb:SuspensionCable_SC2"]
+    },
+
+    {
+      "@id": "sb:Drawing_S2-1-5-1",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-5-1",
+      "sb:drawingName": "附属设施主要工程材料数量汇总表",
+      "sb:category": "桥面系",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-5-1 柳林桥主桥 附属设施主要工程材料数量汇总表.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:Deck_System"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-5-3",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-5-3",
+      "sb:drawingName": "桥面系平面布置图",
+      "sb:category": "桥面系",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-5-3 柳林桥主桥 桥面系平面布置图.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:DeckPaving"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-5-4",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-5-4",
+      "sb:drawingName": "防撞护栏立面布置图",
+      "sb:category": "桥面系",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-5-4 柳林桥主桥 防撞护栏立面布置图.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:CrashBarrier"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-5-5",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-5-5",
+      "sb:drawingName": "防撞护栏立柱及横梁构造",
+      "sb:category": "桥面系",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-5-5 柳林桥主桥 防撞护栏立柱及横梁构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:CrashBarrier"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-5-6",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-5-6",
+      "sb:drawingName": "防撞护栏连接构造",
+      "sb:category": "桥面系",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-5-6 柳林桥主桥 防撞护栏连接构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:CrashBarrier"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-5-7",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-5-7~9",
+      "sb:drawingName": "路灯、人行护栏",
+      "sb:category": "桥面系",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-5-7~9 路灯、人行护栏.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:StreetLight"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-5-10",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-5-10",
+      "sb:drawingName": "伸缩缝构造",
+      "sb:category": "桥面系",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-5-10 柳林桥主桥 伸缩缝构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:ExpansionJoint"]
+    },
+    {
+      "@id": "sb:Drawing_S2-1-5-11",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-5-11",
+      "sb:drawingName": "排水管布置及构造",
+      "sb:category": "桥面系",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/S2-1-5-11 柳林桥主桥 排水管布置及构造.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:DrainagePipe"]
+    },
+
+    {
+      "@id": "sb:Drawing_S2-1-2",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-2",
+      "sb:drawingName": "全桥工程材料数量汇总表",
+      "sb:category": "总体",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/总体/S2-1-2 全桥工程材料数量汇总表.dwg",
+      "sb:projectId": "LLQ-2024-001"
+    },
+    {
+      "@id": "sb:Drawing_S2-1-3",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-3",
+      "sb:drawingName": "桥位平面图",
+      "sb:category": "总体",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/总体/S2-1-3 桥位平面图.dwg",
+      "sb:projectId": "LLQ-2024-001"
+    },
+    {
+      "@id": "sb:Drawing_S2-1-5",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-5",
+      "sb:drawingName": "桥型布置图",
+      "sb:category": "总体",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/总体/S2-1-5 桥型布置图.dwg",
+      "sb:projectId": "LLQ-2024-001"
+    },
+    {
+      "@id": "sb:Drawing_S2-1-7",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-7",
+      "sb:drawingName": "施工流程图",
+      "sb:category": "总体",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/总体/S2-1-7 施工流程图.dwg",
+      "sb:projectId": "LLQ-2024-001"
+    },
+    {
+      "@id": "sb:Drawing_S2-1-9",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "S2-1-9",
+      "sb:drawingName": "焊缝设计图",
+      "sb:category": "总体",
+      "sb:filePath": "柳林桥CAD图纸/主桥/1图纸/总体/S2-1-9 焊缝设计图.dwg",
+      "sb:projectId": "LLQ-2024-001"
+    },
+
+    {
+      "@id": "sb:Drawing_C8-01",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "C8-01",
+      "sb:drawingName": "主要材料数量表（智慧桥梁）",
+      "sb:category": "智慧桥梁",
+      "sb:filePath": "柳林桥CAD图纸/智慧桥梁/C8-01主要材料数量表.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:SmartBridge_System"]
+    },
+    {
+      "@id": "sb:Drawing_C8-02",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "C8-02,03",
+      "sb:drawingName": "智慧桥梁总体架构图、组成图",
+      "sb:category": "智慧桥梁",
+      "sb:filePath": "柳林桥CAD图纸/智慧桥梁/C8-02,03智慧桥梁总体架构图、组成图.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:SmartBridge_System"]
+    },
+    {
+      "@id": "sb:Drawing_C8-04",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "C8-04",
+      "sb:drawingName": "传感器横断面布设",
+      "sb:category": "智慧桥梁",
+      "sb:filePath": "柳林桥CAD图纸/智慧桥梁/C8-04 （ 2、3传感器横断面布设）-最新提资.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:Sensor_S1", "sb:Sensor_S2"]
+    },
+    {
+      "@id": "sb:Drawing_C8-04-34",
+      "@type": "sb:Drawing",
+      "sb:drawingNo": "C8-04~34",
+      "sb:drawingName": "测点布置图、供电传输等",
+      "sb:category": "智慧桥梁",
+      "sb:filePath": "柳林桥CAD图纸/智慧桥梁/C8-04~34 （测点布置图、供电传输等）11-15.dwg",
+      "sb:projectId": "LLQ-2024-001",
+      "sb:relatedComponents": ["sb:MonitoringSystem", "sb:Sensor_S1", "sb:Sensor_S2"]
+    },
+
+    {
+      "@id": "sb:Process_ArchFabrication",
+      "@type": "sb:ConstructionProcess",
+      "sb:processId": "PROC-ARCH-001",
+      "sb:processName": "拱肋节段制作",
+      "sb:category": "制造阶段",
+      "sb:description": "主拱Z1-Z10、次拱C1-C5节段的钢板切割、边缘加工、组对、焊接",
+      "sb:standardHours": 480,
+      "sb:sequence": ["sb:Process_Cutting", "sb:Process_EdgeProcessing", "sb:Process_Assembly", "sb:Process_Welding"],
+      "sb:relatedDrawings": ["sb:Drawing_S2-1-2-5", "sb:Drawing_S2-1-2-6", "sb:Drawing_S2-1-2-7", "sb:Drawing_S2-1-2-15"]
+    },
+    {
+      "@id": "sb:Process_MainBeamFabrication",
+      "@type": "sb:ConstructionProcess",
+      "sb:processId": "PROC-BEAM-001",
+      "sb:processName": "主梁节段制作",
+      "sb:category": "制造阶段",
+      "sb:description": "主梁节段的钢板切割、组对、焊接、预拱度控制",
+      "sb:standardHours": 360,
+      "sb:sequence": ["sb:Process_Cutting", "sb:Process_EdgeProcessing", "sb:Process_Assembly", "sb:Process_Welding"],
+      "sb:relatedDrawings": ["sb:Drawing_S2-1-3-5", "sb:Drawing_S2-1-3-8"]
+    },
+    {
+      "@id": "sb:Process_ArchInstallation",
+      "@type": "sb:ConstructionProcess",
+      "sb:processId": "PROC-INSTALL-001",
+      "sb:processName": "拱肋安装",
+      "sb:category": "安装阶段",
+      "sb:description": "拱肋节段的吊装、定位、临时连接、工地连接",
+      "sb:standardHours": 240,
+      "sb:sequence": ["sb:Process_Hoisting", "sb:Process_Positioning", "sb:Process_TemporaryConnection", "sb:Process_FieldConnection"],
+      "sb:relatedDrawings": ["sb:Drawing_S2-1-2-24", "sb:Drawing_S2-1-2-25", "sb:Drawing_S2-1-2-26"]
+    },
+    {
+      "@id": "sb:Process_SuspensionInstallation",
+      "@type": "sb:ConstructionProcess",
+      "sb:processId": "PROC-INSTALL-002",
+      "sb:processName": "吊索安装",
+      "sb:category": "安装阶段",
+      "sb:description": "吊索的张拉、调整、锚固",
+      "sb:standardHours": 120,
+      "sb:sequence": ["sb:Process_CableHoisting", "sb:Process_Tensioning", "sb:Process_Adjustment"],
+      "sb:relatedDrawings": ["sb:Drawing_S2-1-4-1"]
+    },
+    {
+      "@id": "sb:Process_DeckConstruction",
+      "@type": "sb:ConstructionProcess",
+      "sb:processId": "PROC-DECK-001",
+      "sb:processName": "桥面系施工",
+      "sb:category": "安装阶段",
+      "sb:description": "桥面铺装、护栏安装、排水系统、伸缩缝",
+      "sb:standardHours": 180,
+      "sb:sequence": ["sb:Process_Paving", "sb:Process_BarrierInstallation", "sb:Process_Drainage", "sb:Process_ExpansionJoint"],
+      "sb:relatedDrawings": ["sb:Drawing_S2-1-5-3", "sb:Drawing_S2-1-5-4", "sb:Drawing_S2-1-5-11"]
+    },
+
+    {
+      "@id": "sb:Spec_JTGD64",
+      "@type": "sb:TechnicalSpecification",
+      "sb:specId": "JTG D64-2015",
+      "sb:specName": "公路钢结构桥梁设计规范",
+      "sb:category": "设计规范",
+      "sb:filePath": "一航局海柳课题技术文档及规范/钢箱梁相关规范/《公路钢结构桥梁设计规范》（JTG D64—2015）.pdf",
+      "sb:applicableComponents": ["sb:ArchRib_System", "sb:MainBeam_System", "sb:Suspension_System"]
+    },
+    {
+      "@id": "sb:Spec_JTGT3651",
+      "@type": "sb:TechnicalSpecification",
+      "sb:specId": "JTG/T 3651-2022",
+      "sb:specName": "公路钢结构桥梁制造和安装施工规范",
+      "sb:category": "施工规范",
+      "sb:filePath": "一航局海柳课题技术文档及规范/钢箱梁相关规范/《公路钢结构桥梁制造和安装施工规范》（JTGT 3651—2022）.pdf",
+      "sb:applicableComponents": ["sb:ArchRib_System", "sb:MainBeam_System"]
+    },
+    {
+      "@id": "sb:Spec_GB50661",
+      "@type": "sb:TechnicalSpecification",
+      "sb:specId": "GB 50661-2011",
+      "sb:specName": "钢结构焊接规范",
+      "sb:category": "焊接规范",
+      "sb:filePath": "一航局海柳课题技术文档及规范/钢箱梁相关规范/《钢结构焊接规范》（GB 50661-2011）.pdf",
+      "sb:applicableComponents": ["sb:ArchRib_System", "sb:MainBeam_System"]
+    },
+    {
+      "@id": "sb:Spec_GBT11345",
+      "@type": "sb:TechnicalSpecification",
+      "sb:specId": "GB/T 11345-2013",
+      "sb:specName": "焊缝超声检测技术检测等级和评定",
+      "sb:category": "检测规范",
+      "sb:filePath": "一航局海柳课题技术文档及规范/钢箱梁相关规范/《焊缝超声检测技术检测等级和评定》（GBT11345-2013）.pdf",
+      "sb:applicableComponents": ["sb:ArchRib_System", "sb:MainBeam_System"]
+    }
+  ]
+}
