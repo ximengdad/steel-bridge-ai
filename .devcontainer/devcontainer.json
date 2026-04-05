@@ -1,0 +1,28 @@
+{
+  "name": "钢箱梁智能助手",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {}
+  },
+  "postCreateCommand": "pip install -r 01_交付物1_知识图谱服务/requirements.txt -q && pip install -r 02_交付物2_Web端大模型/backend/requirements.txt -q && echo '✅ 环境初始化完成'",
+  "forwardPorts": [8000, 8081],
+  "portsAttributes": {
+    "8000": {
+      "label": "知识图谱服务",
+      "onAutoForward": "notify"
+    },
+    "8081": {
+      "label": "大模型服务",
+      "onAutoForward": "notify"
+    }
+  },
+  "postStartCommand": "cd 01_交付物1_知识图谱服务 && python3 init_data.py",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+      ]
+    }
+  }
+}
